@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const StorySchema = new Schema({
+const ArticleSchema = new Schema({
   contentId: {
     type: String,
     unique: true,
@@ -22,11 +22,7 @@ const StorySchema = new Schema({
   },
   publicationDate: {
     type: Date
-  },
-  comments: {
-    type: Schema.Types.ObjectId,
-    ref: "comment"
   }
 });
 
-module.exports = Story = mongoose.model("Story", StorySchema);
+module.exports = Article = mongoose.model("articles", ArticleSchema);
