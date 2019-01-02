@@ -1,14 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
-const apiRoutes = require("./routes/apiRoutes");
+//const apiRoutes = require("./routes/apiRoutes");
+const htmlRoutes = require("./routes/htmlRoutes");
 
 const app = express();
 
 const PORT = process.env.PORT || 8080;
 
 // Routes
-app.use("/api", apiRoutes);
+app.use("/", htmlRoutes);
 
 const mongouri = process.env.MONGOURI || "mongodb://localhost/nhlscraper";
 
