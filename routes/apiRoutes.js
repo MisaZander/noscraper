@@ -28,11 +28,29 @@ router.get("/scrape", (req, res) => {
     $("li.mixed-feed__item--article").each((i, element) => {
       let deets = {};
       deets.contentId = $(element).data("content-id");
-      deets.headline = $(element)
+      deets.url = $(element)
         .children("div.mixed-feed__item-header")
         .children("div.mixed-feed__item-header-text")
         .children("a")
         .attr("href");
+      deets.headline = $(element)
+        .children("div.mixed-feed__item-header")
+        .children("div.mixed-feed__item-header-text")
+        .children("a")
+        .children("h4")
+        .text();
+      deets.summary = $(element)
+        .children("div.mixed-feed__item-header")
+        .children("div.mixed-feed__item-header-text")
+        .children("a")
+        .children("h5")
+        .text();
+      deets.publicationDate = $(element)
+        .children("div.mixed-feed__item-content")
+        .children("div.mixed-feed__meta")
+        .children("div.mixed-feed__timestamp")
+        .children("time")
+        .attr("datetime");
       scrapings.push(deets);
     });
     console.log(scrapings);
