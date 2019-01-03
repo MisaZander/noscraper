@@ -13,6 +13,7 @@ router.get("/", (req, res) => {
   const errors = {}; //An empty object to send errors back
   Article.find()
     .sort({ publicationDate: -1 })
+    .populate("comments")
     .exec((err, articles) => {
       if (err) {
         errors.err = err;
@@ -80,9 +81,6 @@ router.get("/scrape", (req, res) => {
         }); //li.each()
         Article.insertMany(scrapings)
           .then(() => {
-            // return res
-            //   .status(200)
-            //   .json({ msg: "Scrape complete", newScrapings: scrapings.length });
             const reply = {
               scrapings,
               articles
