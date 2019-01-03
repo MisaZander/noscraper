@@ -7,9 +7,9 @@ const CommentSchema = new Schema({
     type: String,
     required: true
   },
-  userId: {
-    type: Number,
-    required: true
+  deleted: {
+    type: Boolean,
+    default: false
   },
   date: {
     type: Date,
