@@ -16,12 +16,16 @@ router.get("/", (req, res) => {
         return res.status(500).json(errors);
       }
       //You will receive an empty array if there's nothing to display
-      return res.render("index", { articles });
+      const reply = {
+        scrapings: null,
+        articles
+      };
+      return res.render("index", { reply });
     });
 });
 
 router.get("/scrape", (req, res) => {
-  Article.find({}, "contentId").exec((err, articles) => {
+  Article.find().exec((err, articles) => {
     const errors = {};
     if (err) {
       errors.err = err;
@@ -29,11 +33,6 @@ router.get("/scrape", (req, res) => {
     }
     //Create an array of already existing content IDs to compare to
     const articleIds = articles.map(articles => articles.contentId);
-
-    // const reply = {};
-    // reply.articles = articles;
-    // reply.articleIds = articleIds;
-    // res.status(200).json(reply);
     // Make a request to NHL
     axios.get("https://www.nhl.com/").then(response => {
       const $ = cheerio.load(response.data);
@@ -69,18 +68,18 @@ router.get("/scrape", (req, res) => {
             .children("time")
             .attr("datetime");
           scrapings.push(deets);
-          // console.log("Element: " + i);
-          // console.log("Content ID: " + contentId);
-          // console.log("Typeof contentID: " + typeof contentId);
-          // console.log("Index of previous ID: " + articleIds.indexOf(contentId));
-          // console.log("--------------------------");
         }
       }); //li.each()
       Article.insertMany(scrapings)
         .then(() => {
-          return res
-            .status(200)
-            .json({ msg: "Scrape complete", newScrapings: scrapings.length });
+          // return res
+          //   .status(200)
+          //   .json({ msg: "Scrape complete", newScrapings: scrapings.length });
+          const reply = {
+            scrapings,
+            articles
+          };
+          return res.render("index", { reply });
         })
         .catch(err => {
           errors.err = err;
