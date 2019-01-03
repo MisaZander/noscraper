@@ -6,6 +6,9 @@ const axios = require("axios");
 //Model
 const Article = require("../models/Article");
 
+//@route GET /
+//@desc Query the DB for all headlines
+//@access Public
 router.get("/", (req, res) => {
   const errors = {}; //An empty object to send errors back
   Article.find()
@@ -24,6 +27,9 @@ router.get("/", (req, res) => {
     });
 });
 
+//@route GET /scrape
+//@desc Get the new stuff from the website
+//@access Public
 router.get("/scrape", (req, res) => {
   Article.find()
     .sort({ publicationDate: -1 })
@@ -90,5 +96,22 @@ router.get("/scrape", (req, res) => {
       }); //axios
     }); //findOne() recent
 }); //router.get
+
+//@route GET /article/:contentid
+//@desc Show a single article with all the comments
+//@access Public
+router.get("/article/:contentid", (req, res) => {
+  const errors = {};
+  Article.findOne({ contentId: req.params.contentid }).exec((err, article) => {
+    if (err) {
+      errors.err = err;
+      return res.status(400).json(errors);
+    } else if (!article) {
+      errors.noarticle = "Article not found.";
+      return res.status(404).json(errors);
+    }
+    return res.status(200).json(article);
+  });
+});
 
 module.exports = router;

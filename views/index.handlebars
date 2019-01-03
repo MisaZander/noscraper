@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col">
       <h1 class="dispay-4 text-center">New Scrapes</h1>
-      {{> scrapes/populate articles=scrapings}}
+      {{> article articles=scrapings}}
     </div>
   </div>
   {{/if}}
@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col">
       <h1 class="dispay-4 text-center">Article Archive</h1>
-      {{> scrapes/populate articles=articles}}
+      {{> article articles=articles}}
     </div>
   </div>
   {{/if}}
