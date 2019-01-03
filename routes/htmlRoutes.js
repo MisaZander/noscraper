@@ -114,8 +114,8 @@ router.get("/article/:contentid", (req, res) => {
         errors.noarticle = "Article not found.";
         return res.status(404).json(errors);
       }
-      return res.status(200).json(article);
-      //return res.render("comments", { article });
+      // return res.status(200).json(article);
+      return res.render("comments", { article });
     });
 });
 

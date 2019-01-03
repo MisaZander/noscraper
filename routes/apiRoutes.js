@@ -16,7 +16,7 @@ router.post("/comment/:contentid", (req, res) => {
   const { contentid } = req.params;
 
   const newComment = new Comment({
-    userId: 42,
+    userId: 69,
     comment
   });
 
