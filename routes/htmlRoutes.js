@@ -102,15 +102,17 @@ router.get("/scrape", (req, res) => {
 //@access Public
 router.get("/article/:contentid", (req, res) => {
   const errors = {};
-  Article.findOne({ contentId: req.params.contentid }).exec((err, article) => {
+  contentId = req.params.contentid.toString();
+  Article.findOne({ contentId: contentId }).exec((err, article) => {
     if (err) {
       errors.err = err;
       return res.status(400).json(errors);
     } else if (!article) {
+      //TODO: Render the Hoff here
       errors.noarticle = "Article not found.";
       return res.status(404).json(errors);
     }
-    return res.status(200).json(article);
+    return res.render("comments", { article });
   });
 });
 
