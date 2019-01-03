@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ArticleSchema = new Schema({
-  contentId: {
+  contentid: {
     type: String,
     unique: true,
     required: true
@@ -22,7 +22,13 @@ const ArticleSchema = new Schema({
   },
   publicationDate: {
     type: Date
-  }
+  },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
 });
 
 module.exports = Article = mongoose.model("articles", ArticleSchema);
