@@ -103,17 +103,20 @@ router.get("/scrape", (req, res) => {
 router.get("/article/:contentid", (req, res) => {
   const errors = {};
   contentId = req.params.contentid.toString();
-  Article.findOne({ contentId: contentId }).exec((err, article) => {
-    if (err) {
-      errors.err = err;
-      return res.status(400).json(errors);
-    } else if (!article) {
-      //TODO: Render the Hoff here
-      errors.noarticle = "Article not found.";
-      return res.status(404).json(errors);
-    }
-    return res.render("comments", { article });
-  });
+  Article.findOne({ contentId: contentId })
+    .populate("comments")
+    .exec((err, article) => {
+      if (err) {
+        errors.err = err;
+        return res.status(400).json(errors);
+      } else if (!article) {
+        //TODO: Render the Hoff here
+        errors.noarticle = "Article not found.";
+        return res.status(404).json(errors);
+      }
+      return res.status(200).json(article);
+      //return res.render("comments", { article });
+    });
 });
 
 module.exports = router;
