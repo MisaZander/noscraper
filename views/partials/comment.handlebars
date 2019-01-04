@@ -1,4 +1,5 @@
 <ul class="list-group list-group-flush">
+  {{#if comments}}
   {{#each comments}}
   {{#if deleted}}
   <li class="list-group-item">DELETED ITEM</li>
@@ -7,4 +8,15 @@
   <li class="list-group-item">{{comment}}</li>
   {{/unless}}
   {{/each}}
+  {{/if}}
+  {{#unless comments}}
+  <li class="list-group-item">No comments yet... :(</li>
+  {{/unless}}
 </ul>
+<form class="form">
+  <div class="form-group">
+    <label for="comment">Enter a comment about this article:</label>
+    <textarea id="comment" class="form-control" rows="5"></textarea>
+  </div>
+  <input type="submit" id="commentSubmit" class="btn btn-block btn-success" value="Submit Comment" />
+</form>
