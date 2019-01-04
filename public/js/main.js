@@ -1,5 +1,5 @@
-$(document).ready(function() {
-  $("#commentSubmit").on("click", e => {
+$(document).ready(() => {
+  $(document).on("click", "#commentSubmit", function(e) {
     e.preventDefault();
     const contentid = $("#theform")
       .data("contentid")
@@ -12,6 +12,20 @@ $(document).ready(function() {
     $.ajax("/api/comment/" + contentid, {
       type: "POST",
       data: commentObj
+    }).then(() => {
+      location.reload();
+    });
+  });
+
+  $(document).on("click", ".commentDelete", function(e) {
+    e.preventDefault();
+    const commentid = $(this).attr("data-commentid");
+    if (commentid === undefined) {
+      console.log("Commentid still undefined");
+      return;
+    }
+    $.ajax("/api/comment/" + commentid, {
+      type: "DELETE"
     }).then(() => {
       location.reload();
     });
