@@ -7,7 +7,7 @@ const router = express.Router();
 const Article = require("../models/Article");
 const Comment = require("../models/Comment");
 
-//@route POST /comment
+//@route POST /comment/:contentid
 //@desc Post a comment about a particular article
 //@access Public
 router.post("/comment/:contentid", (req, res) => {
@@ -37,6 +37,23 @@ router.post("/comment/:contentid", (req, res) => {
       return res.status(200).json(insData);
     });
   });
+});
+
+//@route DELETE /comment/:commentid
+//@desc Post a comment about a particular article
+//@access Public
+router.delete("/comment/:commentid", (req, res) => {
+  const errors = {};
+  const { commentid } = req.params;
+  Comment.findByIdAndUpdate(commentid, { $set: { deleted: true } }).exec(
+    err => {
+      if (err) {
+        errors.err = err;
+        return res.status(400).json(errors);
+      }
+      res.status(200).json({ msg: "Comment removed." });
+    }
+  );
 });
 
 module.exports = router;

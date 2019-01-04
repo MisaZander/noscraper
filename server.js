@@ -19,16 +19,16 @@ mongoose
   .then(() => console.log("Connected to Mongo"))
   .catch(err => console.log(err));
 
-// Middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static("public"));
-
 //Use Handlebars
 const exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+// Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
 
 // Routes
 app.use("/", htmlRoutes);
