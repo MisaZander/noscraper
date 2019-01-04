@@ -1,13 +1,19 @@
 <div class="container">
   {{#with reply}}
-  {{#if scrapings}}
   <div class="row">
     <div class="col">
       <h1 class="dispay-4 text-center">New Scrapes</h1>
+      {{#if scrapings}}
       {{> article articles=scrapings}}
+      <a href="/scrape"><button type="button" class="btn btn-block btn-info">Scrape Again</button></a>
+      {{/if}}
+      {{#unless scrapings}}
+      <h4>Scrape now to obtain the latest articles. Or try later if clicking did nothing, there may be nothing new.</h4>
+      <a href="/scrape"><button type="button" class="btn btn-block btn-info">Scrape Now</button></a>
+      {{/unless}}
     </div>
   </div>
-  {{/if}}
+
   {{#if articles}}
   <div class="row">
     <div class="col">

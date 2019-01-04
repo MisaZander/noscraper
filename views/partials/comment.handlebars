@@ -2,12 +2,13 @@
   {{#if comments}}
   {{#each comments}}
   {{#if deleted}}
-  <li class="list-group-item text-muted">DELETED ITEM</li>
+  <li class="list-group-item text-muted">[DELETED]</li>
   {{/if}}
   {{#unless deleted}}
   <li class="list-group-item">
     {{comment}}
     <button type="button" class="btn btn-danger float-right commentDelete" data-commentid="{{ _id }}">DELETE</button>
+    <p class="text-muted">{{ date }}</p>
   </li>
   {{/unless}}
   {{/each}}
