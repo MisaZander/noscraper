@@ -15,6 +15,13 @@
           <h1 class="card-title">Comments</h1>
           {{> comment comments=comments}}
         </div>
+        <form id="theform" class="form" data-contentid="{{ contentId }}">
+          <div class="form-group">
+            <label for="comment">Enter a comment about this article:</label>
+            <textarea id="comment" class="form-control" rows="5"></textarea>
+          </div>
+          <input type="submit" id="commentSubmit" class="btn btn-block btn-success" value="Submit Comment" />
+        </form>
       </div>
     </div>
   </div>

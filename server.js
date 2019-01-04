@@ -9,6 +9,11 @@ const app = express();
 
 const PORT = process.env.PORT || 8080;
 
+// Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
 const mongouri = process.env.MONGOURI || "mongodb://localhost/nhlscraper";
 
 //Connect to Mongo
@@ -29,10 +34,5 @@ app.set("view engine", "handlebars");
 // Routes
 app.use("/", htmlRoutes);
 app.use("/api", apiRoutes);
-
-// Middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
