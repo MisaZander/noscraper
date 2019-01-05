@@ -8,6 +8,24 @@ const moment = require("moment");
 const Article = require("../models/Article");
 const Comment = require("../models/Comment");
 
+//@route GET /
+//@desc Query the DB for all headlines
+//@access Public
+router.get("/", (req, res) => {
+  const errors = {}; //An empty object to send errors back
+  Article.find()
+    .sort({ publicationDate: -1 })
+    .populate("Comment")
+    .exec((err, articles) => {
+      if (err) {
+        errors.err = err;
+        return res.status(500).json(errors);
+      }
+      //You will receive an empty array if there's nothing to display
+      return res.status(200).json(articles);
+    });
+});
+
 //@route POST /comment/:contentid
 //@desc Post a comment about a particular article
 //@access Public
