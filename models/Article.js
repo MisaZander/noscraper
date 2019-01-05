@@ -21,6 +21,9 @@ const ArticleSchema = new Schema({
     type: String
   },
   publicationDate: {
+    type: Date
+  },
+  prettyDate: {
     type: String
   },
   comments: [

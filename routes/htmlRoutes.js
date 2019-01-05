@@ -64,9 +64,7 @@ router.get("/scrape", (req, res) => {
         .children("div.mixed-feed__timestamp")
         .children("time")
         .attr("datetime");
-      deets.publicationDate = moment(deets.publicationDate).format(
-        "hh:mm A, L"
-      );
+      deets.prettyDate = moment(deets.publicationDate).format("hh:mm A, L");
       scrapings.push(deets);
     }); //li.each()
 
@@ -85,7 +83,7 @@ router.get("/article/:contentid", (req, res) => {
   const errors = {};
   contentid = req.params.contentid.toString();
   Article.findOne({ contentid: contentid })
-    .populate("comments")
+    .populate("comments", null, null, { sort: { date: 1 } })
     .exec((err, article) => {
       if (err) {
         errors.err = err;
@@ -104,13 +102,22 @@ const recursiveInsertion = (scrapings, i, scrapingsLength) => {
   if (i === scrapingsLength) {
     return;
   }
-  let { contentid, url, headline, summary, publicationDate } = scrapings[i];
+  let {
+    contentid,
+    url,
+    headline,
+    summary,
+    publicationDate,
+    prettyDate
+  } = scrapings[i];
+
   let newArticle = new Article({
     contentid,
     url,
     headline,
     summary,
-    publicationDate
+    publicationDate,
+    prettyDate
   });
 
   newArticle.save(err => {
@@ -125,68 +132,3 @@ const recursiveInsertion = (scrapings, i, scrapingsLength) => {
 };
 
 module.exports = router;
-
-// OLD SCRAPER
-//@route GET /scrape
-// //@desc Get the new stuff from the website
-// //@access Public
-// router.get("/scrape", (req, res) => {
-//   Article.find()
-//     .sort({ publicationDate: -1 })
-//     .exec((err, articles) => {
-//       console.log(articles);
-//       const errors = {};
-//       if (err) {
-//         errors.err = err;
-//         return res.status(500).json(errors);
-//       }
-//       //Create an array of already existing content IDs to compare to
-//       const articleIds = articles.map(articles => articles.contentid);
-//       // Make a request to NHL
-//       axios.get("https://www.nhl.com/").then(response => {
-//         const $ = cheerio.load(response.data);
-//         const scrapings = [];
-//         $("li.mixed-feed__item--article").each((i, element) => {
-//           let contentid = $(element).data("content-id");
-//           contentid = contentid.toString();
-//           // Only add to DB if it's new
-//           if (articleIds.indexOf(contentid) === -1) {
-//             let deets = {};
-//             deets.contentid = contentid;
-//             deets.url = $(element)
-//               .children("div.mixed-feed__item-header")
-//               .children("div.mixed-feed__item-header-text")
-//               .children("a")
-//               .attr("href");
-//             deets.headline = $(element)
-//               .children("div.mixed-feed__item-header")
-//               .children("div.mixed-feed__item-header-text")
-//               .children("a")
-//               .children("h4")
-//               .text();
-//             deets.summary = $(element)
-//               .children("div.mixed-feed__item-header")
-//               .children("div.mixed-feed__item-header-text")
-//               .children("a")
-//               .children("h5")
-//               .text();
-//             deets.publicationDate = $(element)
-//               .children("div.mixed-feed__item-content")
-//               .children("div.mixed-feed__meta")
-//               .children("div.mixed-feed__timestamp")
-//               .children("time")
-//               .attr("datetime");
-//             scrapings.push(deets);
-//           }
-//         }); //li.each()
-//         Article.insertMany(scrapings)
-//           .then(() => {
-//             return res.redirect("/");
-//           })
-//           .catch(err => {
-//             errors.err = err;
-//             return res.status(500).json(errors);
-//           });
-//       }); //axios
-//     }); //findOne() recent
-// }); //router.get

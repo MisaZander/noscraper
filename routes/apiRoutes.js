@@ -16,11 +16,11 @@ router.post("/comment/:contentid", (req, res) => {
   const { comment } = req.body;
   const { contentid } = req.params;
 
-  const date = moment().format("hh:mm A, L");
+  const prettyDate = moment().format("hh:mm A, L");
 
   const newComment = new Comment({
     comment,
-    date
+    prettyDate
   });
 
   newComment.save((err, comment) => {

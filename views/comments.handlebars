@@ -1,34 +1,37 @@
 {{#with article }}
 <div class="container">
   <div class="jumbotron">
-    <h1 class="display-4">NHL News Scraper</h1>
-    <p class="lead">Robin Scherbatski Tested; Robin Scherbatski Approved*</p>
+    <h1 class="display-1 text-center">NHL News Scraper</h1>
+    <hr>
+    <p class="lead text-center mb-4">Robin Scherbatski Tested; Robin Scherbatski Approved*</p>
     <small class="text-muted">*Fictional sitcom characters cannot really test web apps.</small>
   </div>
   <div class="row">
     <div class="col">
-      <h1 class="display-4 text-center">Comment Section</h1>
-      <div class="card border-dark mb-3">
-        <div class="card-body">
-          <h3>{{ headline }}</h3>
-          <p class="lead">{{ summary }}</p>
-          <a class="card-link" href="https://www.nhl.com{{ url }}" target="_blank">Read More</a>
-        </div>
-      </div>
-      <div class="card border-dark mb-3">
-        <div class="card-body">
-          <h1 class="card-title">Comments</h1>
-          {{> comment comments=comments}}
-        </div>
-      </div>
-      <div class="card border-dark mb-3" style="padding: 20px">
-        <form id="theform" class="form" data-contentid="{{ contentid }}">
-          <div class="form-group">
-            <h3 class="card-title">Enter a comment about this article:</h3>
-            <textarea id="comment" class="form-control" rows="5" required></textarea>
+      <div class="card border-danger p-3">
+        <h1 class="display-4 text-center">Comment Section</h1>
+        <div class="card border-dark mb-3">
+          <div class="card-body">
+            <h3>{{ headline }}</h3>
+            <p class="lead">{{ summary }}</p>
+            <a class="card-link" href="https://www.nhl.com{{ url }}" target="_blank">Read More</a>
           </div>
-          <input type="submit" id="commentSubmit" class="btn btn-block btn-success" value="Submit Comment" />
-        </form>
+        </div>
+        <div class="card border-dark mb-3">
+          <div class="card-body">
+            <h1 class="card-title">Comments</h1>
+            {{> comment comments=comments}}
+          </div>
+        </div>
+        <div class="card border-dark mb-3" style="padding: 20px">
+          <form id="theform" class="form" data-contentid="{{ contentid }}">
+            <div class="form-group">
+              <h3 class="card-title">Enter a comment about this article:</h3>
+              <textarea id="comment" class="form-control" rows="5" required></textarea>
+            </div>
+            <input type="submit" id="commentSubmit" class="btn btn-block btn-success" value="Submit Comment" />
+          </form>
+        </div>
       </div>
     </div>
   </div>

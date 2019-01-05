@@ -4,7 +4,7 @@ $(document).ready(() => {
     const contentid = $("#theform")
       .data("contentid")
       .toString();
-    console.log(contentid);
+    //console.log(contentid);
     const commentObj = {
       comment: $("#comment").val()
     };

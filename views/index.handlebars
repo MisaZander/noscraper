@@ -9,23 +9,28 @@
     {{#with reply}}
     <div class="row">
       <div class="col">
-        <h1 class="dispay-4 text-center">Scrape Time?</h1>
-        <h5 class="text-center">Below is the database of previously scraped articles. Click the button to get more (if
-          any).</h5>
-        <a href="/scrape"><button type="button" class="btn btn-block btn-info">Scrape Now</button></a>
+        <div class="card border-dark p-3">
+          <h1 class="dispay-4 text-center">Scrape Time?</h1>
+          <h5 class="text-center">Below is the database of previously scraped articles. Click the button to get more
+            (if
+            any).</h5>
+          <a href="/scrape"><button type="button" class="btn btn-block btn-info">Scrape Now</button></a>
+        </div>
       </div>
     </div>
     <hr>
     <div class="row">
       <div class="col">
-        <h1 class="dispay-4 text-center">Article Archive</h1>
-        {{#if articles}}
-        {{> article articles=articles}}
-        {{/if}}
-        {{#unless articles}}
-        <h3 class="text-center text-muted">Article database is lonely, please click the scrape button to feed it
-          articles.</h3>
-        {{/unless}}
+        <div class="card border-danger p-3">
+          <h1 class="dispay-4 text-center">Article Archive</h1>
+          {{#if articles}}
+          {{> article articles=articles}}
+          {{/if}}
+          {{#unless articles}}
+          <h3 class="text-center text-muted">Article database is lonely, please click the scrape button to feed it
+            articles.</h3>
+          {{/unless}}
+        </div>
       </div>
     </div>
 

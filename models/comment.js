@@ -11,8 +11,12 @@ const CommentSchema = new Schema({
     type: Boolean,
     default: false
   },
-  date: {
+  prettyDate: {
     type: String
+  },
+  date: {
+    type: Date,
+    default: Date.now()
   }
 });
 

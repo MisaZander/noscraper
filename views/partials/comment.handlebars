@@ -8,7 +8,7 @@
   <li class="list-group-item">
     {{comment}}
     <button type="button" class="btn btn-danger float-right commentDelete" data-commentid="{{ _id }}">DELETE</button>
-    <p class="text-muted">{{ date }}</p>
+    <p class="text-muted">{{ prettyDate }}</p>
   </li>
   {{/unless}}
   {{/each}}
