@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ArticleSchema = new Schema({
-  contentId: {
+  contentid: {
     type: String,
     unique: true,
     required: true
@@ -31,4 +31,4 @@ const ArticleSchema = new Schema({
   ]
 });
 
-module.exports = Article = mongoose.model("articles", ArticleSchema);
+module.exports = Article = mongoose.model("Article", ArticleSchema);

@@ -26,7 +26,7 @@ router.post("/comment/:contentid", (req, res) => {
     }
     //Add new comment to Article's list of comments
     Article.findOneAndUpdate(
-      { contentId: contentid },
+      { contentid: contentid },
       { $push: { comments: comment._id } },
       { new: true }
     ).exec((err, insData) => {
