@@ -71,8 +71,7 @@ router.get("/scrape", (req, res) => {
     //Recursively insert each scraping one by one
     //Attempted duplicates will be rejected
     const scrapingsLength = scrapings.length;
-    recursiveInsertion(scrapings, 0, scrapingsLength);
-    return res.redirect("/");
+    recursiveInsertion(scrapings, 0, scrapingsLength, res);
   }); //axios get
 }); //router scrap get
 
@@ -98,9 +97,10 @@ router.get("/article/:contentid", (req, res) => {
     });
 });
 
-const recursiveInsertion = (scrapings, i, scrapingsLength) => {
+const recursiveInsertion = (scrapings, i, scrapingsLength, res) => {
   if (i === scrapingsLength) {
-    return;
+    //Stop when there are no more scrapings
+    return res.redirect("/");
   }
   let {
     contentid,
@@ -120,14 +120,9 @@ const recursiveInsertion = (scrapings, i, scrapingsLength) => {
     prettyDate
   });
 
-  newArticle.save(err => {
-    if (err) {
-      console.log("Duplicate article scraped.");
-      recursiveInsertion(scrapings, i + 1, scrapingsLength);
-    } else {
-      console.log("New article scraped");
-      recursiveInsertion(scrapings, i + 1, scrapingsLength);
-    }
+  newArticle.save(() => {
+    //Duplicate insertions will fail, new ones will be inserted.
+    recursiveInsertion(scrapings, i + 1, scrapingsLength, res);
   });
 };
 
