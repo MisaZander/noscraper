@@ -9,15 +9,10 @@
     {{#with reply}}
     <div class="row">
       <div class="col">
-        <h1 class="dispay-4 text-center">New Scrapes</h1>
-        {{#if scrapings}}
-        {{> newArticle articles=scrapings}}
-        <a href="/scrape"><button type="button" class="btn btn-block btn-info">Scrape Again</button></a>
-        {{/if}}
-        {{#unless scrapings}}
-        <h4>Scrape now to obtain the latest articles. Or try later if clicking did nothing, there may be nothing new.</h4>
+        <h1 class="dispay-4 text-center">Scrape Time?</h1>
+        <h5 class="text-center">Below is the database of previously scraped articles. Click the button to get more (if
+          any).</h5>
         <a href="/scrape"><button type="button" class="btn btn-block btn-info">Scrape Now</button></a>
-        {{/unless}}
       </div>
     </div>
     <hr>
@@ -25,7 +20,7 @@
     <div class="row">
       <div class="col">
         <h1 class="dispay-4 text-center">Article Archive</h1>
-        {{> dbArticle articles=articles}}
+        {{> article articles=articles}}
       </div>
     </div>
     {{/if}}

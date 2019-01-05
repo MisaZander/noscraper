@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const cheerio = require("cheerio");
 const axios = require("axios");
+const moment = require("moment");
 
 //Model
 const Article = require("../models/Article");
@@ -63,6 +64,9 @@ router.get("/scrape", (req, res) => {
         .children("div.mixed-feed__timestamp")
         .children("time")
         .attr("datetime");
+      deets.publicationDate = moment(deets.publicationDate).format(
+        "hh:mm A, L"
+      );
       scrapings.push(deets);
     }); //li.each()
 
