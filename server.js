@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-const mongouri = process.env.MONGOURI || "mongodb://localhost/nhlscraper";
+const mongouri = process.env.MONGODB_URI || "mongodb://localhost/nhlscraper";
 
 //Connect to Mongo
 
