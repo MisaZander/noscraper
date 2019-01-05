@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 //const cheerio = require("cheerio");
 //const axios = require("axios");
+const moment = require("moment");
 
 //Models
 const Article = require("../models/Article");
@@ -15,8 +16,11 @@ router.post("/comment/:contentid", (req, res) => {
   const { comment } = req.body;
   const { contentid } = req.params;
 
+  const date = moment().format("hh:mm A, L");
+
   const newComment = new Comment({
-    comment
+    comment,
+    date
   });
 
   newComment.save((err, comment) => {

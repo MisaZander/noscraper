@@ -85,7 +85,7 @@ router.get("/article/:contentid", (req, res) => {
   const errors = {};
   contentid = req.params.contentid.toString();
   Article.findOne({ contentid: contentid })
-    .populate("Comment")
+    .populate("comments")
     .exec((err, article) => {
       if (err) {
         errors.err = err;
